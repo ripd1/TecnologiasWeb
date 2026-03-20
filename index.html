@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="VELOX — Alquiler de autos de lujo. Ferrari, Lamborghini, Rolls-Royce y más." />
+  <title>VELOX | Alquiler de Autos de Lujo</title>
+
+  <!-- Fuentes: Cormorant Garamond (display elegante) + Inter (cuerpo limpio) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════
+       NAVBAR
+  ═══════════════════════════ -->
+  <nav id="navbar" aria-label="Navegación principal">
+    <a href="#inicio" class="logo">VEL<span>◆</span>X</a>
+
+    <ul class="nav-links" id="navMenu" role="list">
+      <li><a href="#inicio"   class="nav-link">Inicio</a></li>
+      <li><a href="#flota"    class="nav-link">Flota</a></li>
+      <li><a href="#nosotros" class="nav-link">Nosotros</a></li>
+      <li><a href="#precios"  class="nav-link">Precios</a></li>
+      <li><a href="#contacto" class="nav-link">Contacto</a></li>
+      <!-- Enlace con ruta vacía (requerido) -->
+      <li><a href="" class="nav-link">Blog</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <a href="#contacto" class="btn-gold" onclick="trackCTA('navbar')">Reservar</a>
+      <button
+        class="hamburger"
+        id="navToggle"
+        aria-expanded="false"
+        aria-label="Abrir menú"
+        onclick="toggleMenu()"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════
+       HERO
+       Imagen real: Lamborghini Huracán (Unsplash / Reinhart Julian)
+  ═══════════════════════════ -->
+  <section id="inicio" class="hero" aria-labelledby="hero-title">
+    <img
+      src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1600&q=80"
+      alt="Lamborghini Huracán amarillo en carretera"
+      class="hero-bg-img"
+    />
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-content">
+      <p class="hero-tag">Alquiler exclusivo · Disponible 24/7</p>
+      <h1 id="hero-title" class="hero-title">
+        El auto de tus sueños,<br /><em>listo para ti.</em>
+      </h1>
+      <p class="hero-sub">
+        Accede a la flota más exclusiva de superautos y vehículos de lujo.
+        Entrega en tu puerta, cobertura total incluida.
+      </p>
+      <div class="hero-btns">
+        <a href="#flota"    class="btn-gold">Ver flota</a>
+        <a href="#contacto" class="btn-outline" onclick="trackCTA('hero')">Reservar ahora</a>
+      </div>
+    </div>
+
+    <!-- Estadísticas rápidas -->
+    <div class="hero-stats" aria-label="Estadísticas">
+      <div class="stat"><strong>86+</strong><span>Vehículos</span></div>
+      <div class="stat"><strong>4 000+</strong><span>Clientes</span></div>
+      <div class="stat"><strong>24 h</strong><span>Entrega</span></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════
+       BANDA DE MARCAS (marquee)
+  ═══════════════════════════ -->
+  <div class="brand-strip" aria-hidden="true">
+    <div class="brand-track">
+      <span>Ferrari</span><span class="sep">·</span>
+      <span>Lamborghini</span><span class="sep">·</span>
+      <span>Rolls-Royce</span><span class="sep">·</span>
+      <span>Bentley</span><span class="sep">·</span>
+      <span>Porsche</span><span class="sep">·</span>
+      <span>McLaren</span><span class="sep">·</span>
+      <span>Maserati</span><span class="sep">·</span>
+      <!-- Duplicado para loop continuo -->
+      <span>Ferrari</span><span class="sep">·</span>
+      <span>Lamborghini</span><span class="sep">·</span>
+      <span>Rolls-Royce</span><span class="sep">·</span>
+      <span>Bentley</span><span class="sep">·</span>
+      <span>Porsche</span><span class="sep">·</span>
+      <span>McLaren</span><span class="sep">·</span>
+      <span>Maserati</span><span class="sep">·</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════
+       FLOTA
+  ═══════════════════════════ -->
+  <section id="flota" class="section" aria-labelledby="flota-title">
+    <div class="container">
+
+      <div class="section-head">
+        <p class="section-tag">Nuestra colección</p>
+        <h2 id="flota-title">La <em>Flota</em></h2>
+        <p class="section-desc">Vehículos inspeccionados antes de cada entrega para garantizar una experiencia impecable.</p>
+      </div>
+
+      <!-- Filtros / tabs -->
+      <div class="tabs" role="tablist" aria-label="Filtros de flota">
+        <button class="tab active" role="tab" aria-selected="true"  onclick="filtrar('todos', this)">Todos</button>
+        <button class="tab"        role="tab" aria-selected="false" onclick="filtrar('sport', this)">Superdeportivos</button>
+        <button class="tab"        role="tab" aria-selected="false" onclick="filtrar('lujo', this)">Lujo</button>
+        <button class="tab"        role="tab" aria-selected="false" onclick="filtrar('suv', this)">SUV Premium</button>
+      </div>
+
+      <!-- Grid de autos con imágenes reales de Unsplash -->
+      <div class="cars-grid" id="carsGrid" role="list">
+
+        <!-- Ferrari SF90 — foto: @lauracurrent / Unsplash -->
+        <article class="car-card reveal" data-cat="sport" role="listitem">
+          <div class="car-img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1632245889029-e406faaa34cd?w=700&q=80"
+              alt="Ferrari SF90 Stradale rojo de frente"
+              width="700" height="420"
+              loading="lazy"
+            />
+            <span class="badge">Bestseller</span>
+            <span class="avail">Disponible</span>
+          </div>
+          <div class="car-info">
+            <p class="car-brand">Ferrari</p>
+            <h3 class="car-name">SF90 Stradale</h3>
+            <ul class="car-specs" role="list">
+              <li><strong>1 000 CV</strong><span>Potencia</span></li>
+              <li><strong>2.5 s</strong><span>0–100</span></li>
+              <li><strong>340 km/h</strong><span>Máx</span></li>
+            </ul>
+            <div class="car-footer">
+              <p class="car-price">Desde <strong>$2 400</strong><small>/día</small></p>
+              <a href="#contacto" class="btn-card" onclick="elegirAuto('ferrari-sf90')">Reservar</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Lamborghini Huracán — foto: @reinhartjulian / Unsplash -->
+        <article class="car-card reveal" data-cat="sport" role="listitem">
+          <div class="car-img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=700&q=80"
+              alt="Lamborghini Huracán amarillo en carretera"
+              width="700" height="420"
+              loading="lazy"
+            />
+            <span class="badge new">Nuevo</span>
+            <span class="avail">Disponible</span>
+          </div>
+          <div class="car-info">
+            <p class="car-brand">Lamborghini</p>
+            <h3 class="car-name">Huracán EVO</h3>
+            <ul class="car-specs" role="list">
+              <li><strong>640 CV</strong><span>Potencia</span></li>
+              <li><strong>2.9 s</strong><span>0–100</span></li>
+              <li><strong>325 km/h</strong><span>Máx</span></li>
+            </ul>
+            <div class="car-footer">
+              <p class="car-price">Desde <strong>$1 900</strong><small>/día</small></p>
+              <a href="#contacto" class="btn-card" onclick="elegirAuto('lambo-huracan')">Reservar</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Rolls-Royce — foto: @joshberquist / Unsplash -->
+        <article class="car-card reveal" data-cat="lujo" role="listitem">
+          <div class="car-img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=700&q=80"
+              alt="Rolls-Royce Ghost blanco frente a edificio lujoso"
+              width="700" height="420"
+              loading="lazy"
+            />
+            <span class="avail">Disponible</span>
+          </div>
+          <div class="car-info">
+            <p class="car-brand">Rolls-Royce</p>
+            <h3 class="car-name">Ghost</h3>
+            <ul class="car-specs" role="list">
+              <li><strong>571 CV</strong><span>Potencia</span></li>
+              <li><strong>4.8 s</strong><span>0–100</span></li>
+              <li><strong>250 km/h</strong><span>Máx</span></li>
+            </ul>
+            <div class="car-footer">
+              <p class="car-price">Desde <strong>$3 100</strong><small>/día</small></p>
+              <a href="#contacto" class="btn-card" onclick="elegirAuto('rolls-ghost')">Reservar</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Bentley Continental GT — foto: @jesusauto / Unsplash -->
+        <article class="car-card reveal" data-cat="lujo" role="listitem">
+          <div class="car-img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1563720223523-ddb3d97d95fb?w=700&q=80"
+              alt="Bentley Continental GT gris oscuro en carretera"
+              width="700" height="420"
+              loading="lazy"
+            />
+            <span class="avail">Disponible</span>
+          </div>
+          <div class="car-info">
+            <p class="car-brand">Bentley</p>
+            <h3 class="car-name">Continental GT</h3>
+            <ul class="car-specs" role="list">
+              <li><strong>659 CV</strong><span>Potencia</span></li>
+              <li><strong>3.6 s</strong><span>0–100</span></li>
+              <li><strong>333 km/h</strong><span>Máx</span></li>
+            </ul>
+            <div class="car-footer">
+              <p class="car-price">Desde <strong>$2 200</strong><small>/día</small></p>
+              <a href="#contacto" class="btn-card" onclick="elegirAuto('bentley-gt')">Reservar</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Porsche 911 — foto: @mitchellanicas / Unsplash -->
+        <article class="car-card reveal" data-cat="sport" role="listitem">
+          <div class="car-img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=700&q=80"
+              alt="Porsche 911 GT3 blanco en carretera abierta"
+              width="700" height="420"
+              loading="lazy"
+            />
+            <span class="badge">Popular</span>
+            <span class="avail">Disponible</span>
+          </div>
+          <div class="car-info">
+            <p class="car-brand">Porsche</p>
+            <h3 class="car-name">911 GT3</h3>
+            <ul class="car-specs" role="list">
+              <li><strong>510 CV</strong><span>Potencia</span></li>
+              <li><strong>3.4 s</strong><span>0–100</span></li>
+              <li><strong>318 km/h</strong><span>Máx</span></li>
+            </ul>
+            <div class="car-footer">
+              <p class="car-price">Desde <strong>$1 500</strong><small>/día</small></p>
+              <a href="#contacto" class="btn-card" onclick="elegirAuto('porsche-911')">Reservar</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Lamborghini Urus — foto: @cars_alive / Unsplash -->
+        <article class="car-card reveal" data-cat="suv" role="listitem">
+          <div class="car-img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=700&q=80"
+              alt="Lamborghini Urus negro SUV de lujo"
+              width="700" height="420"
+              loading="lazy"
+            />
+            <span class="badge new">Nuevo</span>
+            <span class="avail">Disponible</span>
+          </div>
+          <div class="car-info">
+            <p class="car-brand">Lamborghini</p>
+            <h3 class="car-name">Urus S</h3>
+            <ul class="car-specs" role="list">
+              <li><strong>666 CV</strong><span>Potencia</span></li>
+              <li><strong>3.5 s</strong><span>0–100</span></li>
+              <li><strong>305 km/h</strong><span>Máx</span></li>
+            </ul>
+            <div class="car-footer">
+              <p class="car-price">Desde <strong>$1 800</strong><small>/día</small></p>
+              <a href="#contacto" class="btn-card" onclick="elegirAuto('lambo-urus')">Reservar</a>
+            </div>
+          </div>
+        </article>
+
+      </div><!-- /cars-grid -->
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════
+       TABLA DE PRECIOS
+  ═══════════════════════════ -->
+  <section id="precios" class="section section-dark" aria-labelledby="precios-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-tag">Tarifas</p>
+        <h2 id="precios-title">Precios por <em>categoría</em></h2>
+        <p class="section-desc">Todos los paquetes incluyen seguro todo riesgo, asistencia 24/7 y kilometraje ilimitado.</p>
+      </div>
+
+      <!-- Tabla comparativa (elemento requerido) -->
+      <div class="table-wrap" role="region" aria-label="Tabla de precios por categoría">
+        <table id="tablaPrecios">
+          <caption>Precios base en USD · IVA no incluido · Temporada 2025</caption>
+          <thead>
+            <tr>
+              <th scope="col">Categoría</th>
+              <th scope="col">Modelos</th>
+              <th scope="col">1 día</th>
+              <th scope="col">3 días</th>
+              <th scope="col">Semana</th>
+              <th scope="col">Incluye</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Sport</strong></td>
+              <td>Porsche, Audi R8</td>
+              <td>$1 200</td><td>$3 200</td><td>$7 500</td>
+              <td>Seguro básico</td>
+            </tr>
+            <tr>
+              <td><strong>Superdeportivo</strong></td>
+              <td>Ferrari, Lamborghini, McLaren</td>
+              <td>$1 900</td><td>$5 200</td><td>$12 000</td>
+              <td>Seguro todo riesgo</td>
+            </tr>
+            <tr class="highlight">
+              <td><strong>Ultra Lujo ★</strong></td>
+              <td>Rolls-Royce, Bentley</td>
+              <td>$2 800</td><td>$7 800</td><td>$18 000</td>
+              <td>Chofer + seguro full</td>
+            </tr>
+            <tr>
+              <td><strong>SUV Premium</strong></td>
+              <td>Urus, Cayenne Turbo</td>
+              <td>$1 500</td><td>$4 000</td><td>$9 500</td>
+              <td>Seguro todo riesgo</td>
+            </tr>
+            <tr>
+              <td><strong>Hypercar</strong></td>
+              <td>Bugatti, Pagani</td>
+              <td>$5 500</td><td>$15 000</td><td>Consultar</td>
+              <td>Paquete VIP total</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="6">
+                * Depósito de garantía requerido al momento de la reserva.
+                <a href="">Ver política de cancelación →</a>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════
+       NOSOTROS / VENTAJAS
+       Imagen real: interior de auto de lujo (Unsplash)
+  ═══════════════════════════ -->
+  <section id="nosotros" class="section" aria-labelledby="nosotros-title">
+    <div class="container nosotros-grid">
+
+      <!-- Imagen con nota flotante -->
+      <figure class="nosotros-fig">
+        <img
+          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
+          alt="Interior de cuero de Rolls-Royce con iluminación ambiental"
+          width="800" height="1000"
+          loading="lazy"
+        />
+        <figcaption>Interior — Rolls-Royce Ghost 2024</figcaption>
+        <div class="rating-box" aria-label="Valoración media 4.9 estrellas">
+          <strong>4.9</strong>
+          <span>★ Valoración media</span>
+        </div>
+      </figure>
+
+      <!-- Contenido -->
+      <div class="nosotros-content">
+        <p class="section-tag">Por qué elegirnos</p>
+        <h2 id="nosotros-title">La experiencia <em>VELOX</em></h2>
+
+        <ul class="features" role="list">
+          <li class="feature reveal">
+            <div class="feature-icon" aria-hidden="true">🛡️</div>
+            <div>
+              <h3>Cobertura total incluida</h3>
+              <p>Seguro todo riesgo en todos nuestros vehículos. Sin costes ocultos ni sorpresas.</p>
+            </div>
+          </li>
+          <li class="feature reveal">
+            <div class="feature-icon" aria-hidden="true">⚡</div>
+            <div>
+              <h3>Entrega en 24 horas</h3>
+              <p>Llevamos el vehículo donde tú estés: hotel, aeropuerto o residencia. Disponible en +30 ciudades.</p>
+            </div>
+          </li>
+          <li class="feature reveal">
+            <div class="feature-icon" aria-hidden="true">👔</div>
+            <div>
+              <h3>Conductor privado opcional</h3>
+              <p>Choferes certificados para que disfrutes al máximo sin preocupaciones.</p>
+            </div>
+          </li>
+          <li class="feature reveal">
+            <div class="feature-icon" aria-hidden="true">📞</div>
+            <div>
+              <h3>Asistencia 24/7</h3>
+              <p>Un concierge dedicado disponible en todo momento durante tu alquiler.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════
+       VIDEO (elemento externo incrustado)
+       Video real de YouTube: Drag Race Ferrari vs Lamborghini vs Porsche vs McLaren — Carwow
+  ═══════════════════════════ -->
+  <section class="section section-dark" aria-labelledby="video-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-tag">En movimiento</p>
+        <h2 id="video-title">Siente <em>la potencia</em></h2>
+        <p class="section-desc">Ferrari vs Lamborghini vs Porsche vs McLaren — los mejores superautos del mundo, cara a cara.</p>
+      </div>
+
+      <!-- iframe de YouTube con video real de autos de lujo -->
+      <div class="video-wrap">
+        <iframe
+          src="https://www.youtube.com/embed/K1R0D5GomNw"
+          title="World's Greatest Drag Race 2024 — Ferrari vs Lamborghini vs Porsche vs McLaren | Carwow"
+          width="1280"
+          height="720"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+          aria-label="Video de YouTube: drag race entre los mejores superautos de 2024"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════
+       TESTIMONIOS
+  ═══════════════════════════ -->
+  <section class="section" aria-labelledby="testi-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-tag">Lo que dicen</p>
+        <h2 id="testi-title">Nuestros <em>clientes</em></h2>
+      </div>
+
+      <div class="testimonios" role="list">
+
+        <article class="testi reveal" role="listitem">
+          <p class="testi-stars" aria-label="5 estrellas">★★★★★</p>
+          <p class="testi-text">"Alquilé el Ferrari SF90 para mi aniversario. El proceso fue increíblemente sencillo y el auto en condiciones perfectas. Una experiencia que repetiré."</p>
+          <div class="testi-autor">
+            <div class="avatar" aria-hidden="true">RC</div>
+            <div>
+              <strong>Rodrigo Castellano</strong>
+              <span>CEO · Madrid, España</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="testi reveal" role="listitem">
+          <p class="testi-stars" aria-label="5 estrellas">★★★★★</p>
+          <p class="testi-text">"Usé el Rolls-Royce Ghost para un evento corporativo. El chofer privado fue impecable. Todos los asistentes quedaron impresionados. El mejor servicio de lujo."</p>
+          <div class="testi-autor">
+            <div class="avatar" aria-hidden="true">SP</div>
+            <div>
+              <strong>Sofía Paredes</strong>
+              <span>Directora de Eventos · Buenos Aires</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="testi reveal" role="listitem">
+          <p class="testi-stars" aria-label="5 estrellas">★★★★★</p>
+          <p class="testi-text">"El Lamborghini Urus para un road trip por la Patagonia fue una locura en el buen sentido. Atención al cliente de primer nivel. 100% recomendado."</p>
+          <div class="testi-autor">
+            <div class="avatar" aria-hidden="true">MV</div>
+            <div>
+              <strong>Matías Vega</strong>
+              <span>Fotógrafo · Ciudad de México</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════
+       FORMULARIO DE RESERVA
+  ═══════════════════════════ -->
+  <section id="contacto" class="section section-dark" aria-labelledby="contacto-title">
+    <div class="container contacto-grid">
+
+      <!-- Info lateral -->
+      <div class="contacto-info">
+        <p class="section-tag">Reserva directa</p>
+        <h2 id="contacto-title">Tu próxima <em>aventura</em></h2>
+        <p class="section-desc">Uno de nuestros especialistas te contactará en menos de 2 horas.</p>
+
+        <!-- Garantías -->
+        <ul class="garantias" role="list">
+          <li>Cancelación gratuita hasta 48 h antes</li>
+          <li>Sin cargos ocultos ni letra pequeña</li>
+          <li>Seguro todo riesgo incluido</li>
+          <li>Atención personalizada en español</li>
+        </ul>
+
+        <!-- Datos de contacto -->
+        <dl class="contacto-datos">
+          <dt>📞 Teléfono</dt>
+          <dd><a href="tel:+18005550000">+1 800 555 0000</a></dd>
+          <dt>✉️ Email</dt>
+          <dd><a href="mailto:hola@velox.com">hola@velox.com</a></dd>
+          <dt>🕐 Horario</dt>
+          <dd>Lun–Vie 9:00–20:00 · Sáb 10:00–15:00</dd>
+        </dl>
+
+        <!-- Redes sociales (enlaces con ruta vacía — requerido) -->
+        <nav class="social" aria-label="Redes sociales de VELOX">
+          <a href="" class="social-link">Instagram</a>
+          <a href="" class="social-link">YouTube</a>
+          <a href="" class="social-link">WhatsApp</a>
+        </nav>
+      </div>
+
+      <!-- Formulario de reserva (elemento requerido) -->
+      <form
+        id="reservaForm"
+        class="reserva-form"
+        action=""
+        method="POST"
+        novalidate
+        onsubmit="enviarFormulario(event)"
+        aria-label="Formulario de reserva de vehículo"
+      >
+        <h3 class="form-title">Solicitar reserva</h3>
+        <p class="form-sub">Los campos con * son obligatorios</p>
+        <hr class="form-hr" />
+
+        <!-- Nombre y apellido -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nombre">Nombre *</label>
+            <input type="text"  id="nombre"   name="nombre"   placeholder="María"   required minlength="2" autocomplete="given-name"  aria-required="true" onblur="validar(this)" />
+            <span class="error" id="nombre-err"   role="alert" aria-live="polite"></span>
+          </div>
+          <div class="form-group">
+            <label for="apellido">Apellido *</label>
+            <input type="text"  id="apellido" name="apellido" placeholder="García"  required minlength="2" autocomplete="family-name" aria-required="true" onblur="validar(this)" />
+            <span class="error" id="apellido-err" role="alert" aria-live="polite"></span>
+          </div>
+        </div>
+
+        <!-- Email y teléfono -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email"    name="email"    placeholder="tu@correo.com"    required autocomplete="email" aria-required="true" onblur="validar(this)" />
+            <span class="error" id="email-err"    role="alert" aria-live="polite"></span>
+          </div>
+          <div class="form-group">
+            <label for="telefono">Teléfono *</label>
+            <input type="tel"   id="telefono" name="telefono" placeholder="+1 800 000 000" required autocomplete="tel"   aria-required="true" onblur="validar(this)" />
+            <span class="error" id="telefono-err" role="alert" aria-live="polite"></span>
+          </div>
+        </div>
+
+        <!-- Vehículo y ciudad -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="vehiculo">Vehículo *</label>
+            <select id="vehiculo" name="vehiculo" required aria-required="true" onchange="calcularPrecio()">
+              <option value="" disabled selected>Selecciona…</option>
+              <option value="ferrari-sf90">Ferrari SF90 — $2 400/día</option>
+              <option value="lambo-huracan">Lamborghini Huracán — $1 900/día</option>
+              <option value="rolls-ghost">Rolls-Royce Ghost — $3 100/día</option>
+              <option value="bentley-gt">Bentley Continental GT — $2 200/día</option>
+              <option value="porsche-911">Porsche 911 GT3 — $1 500/día</option>
+              <option value="lambo-urus">Lamborghini Urus S — $1 800/día</option>
+              <option value="otro">Otro / Consultar</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="ciudad">Ciudad de entrega *</label>
+            <select id="ciudad" name="ciudad" required aria-required="true">
+              <option value="" disabled selected>Selecciona…</option>
+              <option>Madrid</option>
+              <option>Barcelona</option>
+              <option>Miami</option>
+              <option>Nueva York</option>
+              <option>Bogotá</option>
+              <option>Ciudad de México</option>
+              <option>Buenos Aires</option>
+              <option>Dubai</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Fechas -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fecha-inicio">Fecha de inicio *</label>
+            <input type="date" id="fecha-inicio" name="fecha-inicio" required aria-required="true" onchange="calcularPrecio()" />
+          </div>
+          <div class="form-group">
+            <label for="fecha-fin">Fecha de devolución *</label>
+            <input type="date" id="fecha-fin" name="fecha-fin" required aria-required="true" onchange="calcularPrecio()" />
+          </div>
+        </div>
+
+        <!-- Precio estimado dinámico -->
+        <div id="precio-estimado" class="precio-estimado" hidden aria-live="polite">
+          <span>Estimado total:</span>
+          <strong id="precio-val">—</strong>
+        </div>
+
+        <!-- Extras opcionales -->
+        <div class="form-group">
+          <label>Extras opcionales</label>
+          <div class="checks">
+            <label class="check-item">
+              <input type="checkbox" name="extras" value="conductor" onchange="calcularPrecio()" />
+              Conductor privado (+$400/día)
+            </label>
+            <label class="check-item">
+              <input type="checkbox" name="extras" value="decoracion" />
+              Decoración especial
+            </label>
+            <label class="check-item">
+              <input type="checkbox" name="extras" value="seguro-plus" />
+              Seguro Plus
+            </label>
+          </div>
+        </div>
+
+        <!-- Mensaje -->
+        <div class="form-group">
+          <label for="mensaje">Comentarios adicionales</label>
+          <textarea
+            id="mensaje"
+            name="mensaje"
+            rows="4"
+            placeholder="Detalles especiales, referencias visuales, etc."
+            maxlength="500"
+            oninput="contarChars(this)"
+          ></textarea>
+          <span class="char-count" id="char-count" aria-live="polite">0 / 500</span>
+        </div>
+
+        <!-- Términos y condiciones -->
+        <div class="form-group">
+          <label class="check-item">
+            <input type="checkbox" name="terminos" required aria-required="true" />
+            Acepto los <a href="">términos y condiciones</a> y la <a href="">política de privacidad</a>.
+          </label>
+        </div>
+
+        <!-- Botón de envío -->
+        <button type="submit" class="btn-submit" id="btnSubmit" aria-label="Enviar solicitud de reserva">
+          Solicitar reserva →
+        </button>
+
+        <!-- Mensaje de confirmación (oculto hasta el envío) -->
+        <div id="form-ok" class="form-ok" hidden role="status" aria-live="assertive">
+          ✅ ¡Solicitud recibida! Te contactaremos en menos de 2 horas.
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════
+       FOOTER
+  ═══════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer-inner">
+
+      <div class="footer-brand">
+        <p class="footer-logo">VEL<span>◆</span>X</p>
+        <p class="footer-tagline">La élite del alquiler de autos de lujo.</p>
+        <p class="footer-contact">
+          <a href="tel:+18005550000">+1 800 555 0000</a> ·
+          <a href="mailto:hola@velox.com">hola@velox.com</a>
+        </p>
+      </div>
+
+      <nav aria-label="Flota">
+        <p class="footer-col-title">Flota</p>
+        <ul role="list">
+          <li><a href="">Superdeportivos</a></li>
+          <li><a href="">Ultra Lujo</a></li>
+          <li><a href="">SUV Premium</a></li>
+          <li><a href="">Hypercars</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Empresa">
+        <p class="footer-col-title">Empresa</p>
+        <ul role="list">
+          <li><a href="">Sobre VELOX</a></li>
+          <li><a href="">Prensa</a></li>
+          <li><a href="">Trabaja con nosotros</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Legal">
+        <p class="footer-col-title">Legal</p>
+        <ul role="list">
+          <li><a href="">Términos de uso</a></li>
+          <li><a href="">Privacidad</a></li>
+          <li><a href="">Cancelaciones</a></li>
+        </ul>
+      </nav>
+
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© 2025 VELOX Luxury Cars. Todos los derechos reservados.</p>
+        <a href="#inicio" aria-label="Volver al inicio">↑ Volver arriba</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
